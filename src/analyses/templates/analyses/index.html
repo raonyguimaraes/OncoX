@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+
+{% load staticfiles %}
+{% load crispy_forms_tags %}
+
+{% block title %}{{ block.super }}Files{% endblock %}
+
+{% block navbar-left %}
+  {% include "_navbar.html" with active_link="files" %}
+{% endblock %}
+
+<!-- Benefits of the Django application -->
+{% block container %}
+<br><br>
+<div id="" class="">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <h1>Analyses</h1>
+        <div>
+          <a href="{% url 'analyses_create' %}" class="btn btn-info" role="button">Create</a>
+        </div>
+        <br>
+        <form action="{% url 'bulk_actions' %}" method="post">
+        {% csrf_token %}
+         <select>
+          <option value="delete">delete</option>
+          <option value="annotate">Annotate</option>
+          <option value="opel">Opel</option>
+          <option value="audi">Audi</option>
+        </select> 
+        <input type="submit" value="Submit">
+        <br>
+        
+        <table class="table table-bordered">
+          <thead>
+            <th><input id="select_all" type="checkbox">Id</th>
+            <th>Name</th>
+            <th>Files</th>
+          </thead>
+          <tbody>
+            {% for analysis in analyses %}
+            <tr>
+              <td>{{analysis.id}}<input name="analyses" class="analyses" id="analyses_{{analysis.id}}" value="{{analysis.id}}" type="checkbox"></td>
+              <td>{{analysis.name}}</td>
+              <td>
+              <ul>
+              {% for file in analysis.files.all %}
+                <li>{{file.name}}</li>
+              {% endfor %}
+              </ul>
+
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+{% endblock container %}
+
+{% block scripts %}
+<script type="text/javascript" >
+      $("#select_all").change(function() {
+        $(".analyses:checkbox").attr('checked', this.checked);
+      });
+    </script>
+{% endblock scripts %}

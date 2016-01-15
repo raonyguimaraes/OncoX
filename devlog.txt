@@ -1,0 +1,2 @@
+python manage.py dumpdata -v 2 --format=json authtools > fixtures/authtools.json
+python manage.py loaddata fixtures/authtools.json

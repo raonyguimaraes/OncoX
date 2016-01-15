@@ -1,0 +1,133 @@
+{% extends "base.html" %}
+
+{% load staticfiles %}
+{% load crispy_forms_tags %}
+{% load upload_tags %}
+
+
+{% block title %}{{ block.super }}Create{% endblock %}
+
+{% block navbar-left %}
+  {% include "_navbar.html" with active_link="files" %}
+{% endblock %}
+
+{% block extrahead %}
+
+    <!-- blueimp Gallery styles -->
+    <link rel="stylesheet" href="{% static "jquery-fileupload/css/blueimp-gallery.min.css" %}">
+    <!-- CSS to style the file input field as button and adjust the Bootstrap progress bars -->
+    <link rel="stylesheet" href="{% static "jquery-fileupload/css/jquery.fileupload-ui.css" %}">
+    <!-- CSS adjustments for browsers with JavaScript disabled -->
+    <noscript><link rel="stylesheet" href="{% static "jquery-fileupload/css/jquery.fileupload-ui-noscript.css" %}"></noscript>
+    <script src="{% static "jquery-1.7.2.min.js" %}"></script>
+
+    <!-- Shim to make HTML5 elements usable in older Internet Explorer versions -->
+    <!--[if lt IE 9]><script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+{% endblock extrahead %}
+
+
+<!-- Benefits of the Django application -->
+{% block container %}
+<br><br>
+<div id="" class="">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">  
+        <h1>File Upload</h1>
+        <form id="fileupload" method="post" action="./{{analysis.id}}" enctype="multipart/form-data">{% csrf_token %}
+            
+
+            
+            <div class="row fileupload-buttonbar">
+                <div class="col-lg-7">
+                    <!-- The fileinput-button span is used to style the file input field as button -->
+                    <span class="btn btn-success fileinput-button">
+                        <i class="glyphicon glyphicon-plus"></i>
+                        <span>Select your Files</span>
+                        <input id="id_variants_file" type="file" name="file" multiple>
+                    </span>
+                    <!-- The loading indicator is shown during file processing -->
+                    <span class="fileupload-loading"></span>
+                </div>
+                <!-- The global progress information -->
+                <div class="col-lg-5 fileupload-progress fade">
+                    <!-- The global progress bar -->
+                    <div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100">
+                        <div class="progress-bar progress-bar-success" style="width:0%;"></div>
+                    </div>
+                    <!-- The extended global progress information -->
+                    <div class="progress-extended">&nbsp;</div>
+                </div>
+            </div>
+            
+            <!-- The table listing the files available for upload/download -->
+            <table role="presentation" class="table table-striped"><tbody class="files"></tbody></table>
+            <a href="{% url 'files' %}">
+            <span class="btn btn-primary start">
+                <span>Go Back!</span>
+            </span>
+            </a>
+            <a href="{% url 'analyses_create' %}" class="btn btn-primary start">Create Analysis</a>
+        </form>
+
+    {% upload_js %}
+
+    <!-- The jQuery UI widget factory, can be omitted if jQuery UI is already included -->
+    <script src="{% static "jquery-fileupload/js/vendor/jquery.ui.widget.js" %}"></script>
+    <!-- The Templates plugin is included to render the upload/download listings -->
+    <script src="{% static "jquery-fileupload/js/tmpl.min.js" %}"></script>
+    <!-- The Load Image plugin is included for the preview images and image resizing functionality -->
+    <script src="{% static "jquery-fileupload/js/load-image.min.js" %}"></script>
+    <!-- The Canvas to Blob plugin is included for image resizing functionality -->
+    <script src="{% static "jquery-fileupload/js/canvas-to-blob.min.js" %}"></script>
+    <!-- Bootstrap JS is not required, but included for the responsive demo navigation -->
+    <script src="{% static "jquery-fileupload/js/bootstrap.min.js" %}"></script>
+    <!-- blueimp Gallery script -->
+    <script src="{% static "jquery-fileupload/js/jquery.blueimp-gallery.min.js" %}"></script>
+    <!-- The Iframe Transport is required for browsers without support for XHR file uploads -->
+    <script src="{% static "jquery-fileupload/js/jquery.iframe-transport.js" %}"></script>
+    <!-- The basic File Upload plugin -->
+    <script src="{% static "jquery-fileupload/js/jquery.fileupload.js" %}"></script>
+    <!-- The File Upload processing plugin -->
+    <script src="{% static "jquery-fileupload/js/jquery.fileupload-process.js" %}"></script>
+    <!-- The File Upload image preview & resize plugin -->
+    <script src="{% static "jquery-fileupload/js/jquery.fileupload-image.js" %}"></script>
+    <!-- The File Upload audio preview plugin -->
+    <script src="{% static "jquery-fileupload/js/jquery.fileupload-audio.js" %}"></script>
+    <!-- The File Upload video preview plugin -->
+    <script src="{% static "jquery-fileupload/js/jquery.fileupload-video.js" %}"></script>
+    <!-- The File Upload validation plugin -->
+    <script src="{% static "jquery-fileupload/js/jquery.fileupload-validate.js" %}"></script>
+    <!-- The File Upload user interface plugin -->
+    <script src="{% static "jquery-fileupload/js/jquery.fileupload-ui.js" %}"></script>
+    <!-- The main application script -->
+    <script src="{% static "jquery-fileupload/js/main.js" %}"></script>
+    <script src="{% static "jquery-fileupload/js/locale.js" %}"></script>
+    <script src="{% static "jquery-fileupload/js/csrf.js" %}"></script>
+    <!-- The XDomainRequest Transport is included for cross-domain file deletion for IE8+ -->
+    <!--[if gte IE 8]>
+    <script src="{% static "jquery-fileupload/js/cors/jquery.xdr-transport.js" %}"></script>
+    <![endif]-->
+    <script>
+    $('#fileupload').fileupload({
+        autoUpload: true,
+        sequentialUploads: true
+    });
+    </script>
+
+
+
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock container %}
+
+{% block scripts %}
+
+<script type="text/javascript" src="{% static "jquery-ui-bootstrap/js/jquery-ui-1.9.0.custom.min.js" %}"></script>
+<script type="text/javascript" src="{% static "jquery-ui-bootstrap/js/init-ui.js" %}"></script>
+
+{% endblock scripts %}

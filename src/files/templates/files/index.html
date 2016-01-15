@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% load staticfiles %}
+{% load crispy_forms_tags %}
+
+{% block title %}{{ block.super }}Files{% endblock %}
+
+{% block navbar-left %}
+  {% include "_navbar.html" with active_link="files" %}
+{% endblock %}
+
+<!-- Benefits of the Django application -->
+{% block container %}
+<br><br>
+<div id="" class="">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+
+        <h1>Files</h1>
+        <div>
+          <a href="{% url 'files_create' %}" class="btn btn-info" role="button">Create</a>
+        </div>
+        <br>
+        <table class="table table-bordered">
+          <thead>
+            <th>Id</th>
+            <th>Name</th>
+            <th>File</th>
+          </thead>
+          <tbody>
+            {% for file in files %}
+            <tr>
+              <td>{{file.id}}</td>
+              <td>{{file.name}}</td>
+              <td>{{file.file}}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+{% endblock container %}
+
+{% block scripts %}
+
+{% endblock scripts %}

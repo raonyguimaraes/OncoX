@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% load staticfiles %}
+{% load crispy_forms_tags %}
+
+{% block title %}{{ block.super }}Files{% endblock %}
+
+{% block navbar-left %}
+  {% include "_navbar.html" with active_link="files" %}
+{% endblock %}
+
+<!-- Benefits of the Django application -->
+{% block container %}
+<br><br>
+<div id="" class="">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <h1>Create</h1>
+        <br>
+        <form action="." method="post">
+            {% csrf_token %}
+            {{ form.as_p}}
+            <input type="submit" value="Submit" />
+        </form>        
+      </div>
+    </div>
+  </div>
+</div>
+
+
+{% endblock container %}
+
+{% block scripts %}
+
+{% endblock scripts %}
