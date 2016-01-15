@@ -23,9 +23,9 @@
         <br>
         <form action="{% url 'bulk_actions' %}" method="post">
         {% csrf_token %}
-         <select>
-          <option value="delete">delete</option>
-          <option value="annotate">Annotate</option>
+         <select id="actions" name="actions_list">
+          <option value="rerun">ReRun</option>
+          <option value="delete">Delete</option>
           <option value="opel">Opel</option>
           <option value="audi">Audi</option>
         </select> 

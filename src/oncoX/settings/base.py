@@ -80,6 +80,7 @@ INSTALLED_APPS = (
     'files',
     'analyses',
     'djcelery',
+    'kombu.transport.django',
 
 )
 
@@ -143,5 +144,11 @@ LOGIN_URL = reverse_lazy("accounts:login")
 THUMBNAIL_EXTENSION = 'png'     # Or any extn for your thumbnails
 
 # CELERY_RESULT_BACKEND='djcelery.backends.database:DatabaseBackend'
+
 import djcelery
 djcelery.setup_loader()
+
+# app.conf.update(
+CELERY_RESULT_BACKEND='djcelery.backends.database:DatabaseBackend'
+# )
+BROKER_URL = 'django://'
